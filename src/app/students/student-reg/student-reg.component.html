@@ -1,0 +1,43 @@
+<form class="stdform" #studentForm="ngForm" (ngSubmit)="onSubmit(studentForm)">
+  <input type="hidden" name="Id" #Id="ngModel" [(ngModel)]="studentService.selectedStudent.Id">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input class="form-control" name="FirstName" #FirstName="ngModel" [(ngModel)]="studentService.selectedStudent.FirstName"
+        placeholder="First Name" required>
+      <div class="validation-error" *ngIf="FirstName.invalid && FirstName.touched">This Field is Required.</div>
+    </div>
+    <div class="form-group col-md-6">
+      <input class="form-control" name="LastName" #LastName="ngModel" [(ngModel)]="studentService.selectedStudent.LastName" placeholder="Last Name"
+        required>
+      <div class="validation-error" *ngIf="LastName.invalid && LastName.touched">This Field is Required.</div>
+    </div>
+  </div>
+  <div class="form-group">
+    <input class="form-control" name="ParentName" #ParentName="ngModel" [(ngModel)]="studentService.selectedStudent.ParentName" placeholder="ParentName">
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <input class="form-control" name="DOB" #DOB="ngModel" [(ngModel)]="studentService.selectedStudent.DOB" placeholder="Emp DOB">
+    </div>
+    <div class="form-group col-md-6">
+
+        <select (change)="filterForeCasts($event.target.value)">
+            <option value="0">--All--</option>
+            <option *ngFor="let summary of summaries" value={{summary}}>
+                {{summary}}
+            </option>
+        </select>
+      <!-- <input class="form-control" name="Office" #Office="ngModel" [(ngModel)]="studentService.selectedStudent.Office" placeholder="Office"> -->
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-8">
+      <button [disabled]="!studentForm.valid" type="submit" class="btn btn-lg btn-block btn-info">
+        <i class="fa fa-floppy-o"></i> Submit</button>
+    </div>
+    <div class="form-group col-md-4">
+      <button type="button" class="btn btn-lg btn-block btn-secondary" (click)="resetForm(studentForm)">
+        <i class="fa fa-repeat"></i> Reset</button>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,35 @@
+<nav class="navbar">
+    <input class="form-control" type="text" name="search" [(ngModel)]="filter">      
+  </nav>
+<table class="table table-sm table-hover">
+    <!-- <tr *ngFor="let game of games | orderBy: key : reverse | filter:filter | paginate: { itemsPerPage: 5, currentPage: p }; let i = index"> -->
+        <thead>
+            <tr>
+              <th>#</th>
+              <th (click)="sort('FirstName')">FirstName
+                <span class="glyphicon sort-icon" *ngIf="key =='FirstName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+              </th>
+              <th (click)="sort('LastName')">LastName
+                  <span class="glyphicon sort-icon" *ngIf="key =='LastName'" [ngClass]="{'glyphicon-chevron-up':reverse,'glyphicon-chevron-down':!reverse}"></span>
+                </th>
+             
+            </tr>
+          </thead>
+
+  <tr *ngFor="let student of studentService.studentList | orderBy: key : reverse | filter:filter |  paginate: { itemsPerPage: 5, currentPage: p }; let i = index">
+
+      <td>{{i}}</td>
+    <td>{{student.FirstName}}</td>  
+    <td>{{student.LastName}}</td>
+    <!-- <td>{{student.EmpCode}}</td> -->
+    <td>
+      <a class="btn text-warning" (click)="showForEdit(student)">
+        <i class="">Edit</i>
+      </a>
+      <a class="btn text-danger" (click)="onDelete(student.Id)">
+        <i class="">Delete</i>
+      </a>
+    </td>
+  </tr>
+</table>
+<pagination-controls (pageChange)="p = $event"></pagination-controls>
